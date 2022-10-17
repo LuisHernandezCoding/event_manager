@@ -44,15 +44,15 @@ def legislators_by_zipcode(zip)
     civic_info.representative_info_by_address(
       address: zip,
       levels: 'country',
-      roles: ['legislatorUpperBody', 'legislatorLowerBody']
+      roles: %w[legislatorUpperBody legislatorLowerBody]
     ).officials
-  rescue
+  rescue StandardError
     'You can find your representatives by visiting www.commoncause.org/take-action/find-elected-officials'
   end
 end
 
 def save_thank_you_letter(id, form_letter)
-  Dir.mkdir('output') unless Dir.exist?('output')
+  FileUtils.mkdir_p('output')
 
   filename = "output/thanks_#{id}.html"
 
